@@ -1,6 +1,6 @@
 from aiogram import executor, Dispatcher, Bot, types
 from aiogram.dispatcher.filters import Text
-from Keyboards import kb, kb1, kb2
+from Keyboards import kb, kb2
 from config import token
 from aiogram.dispatcher import FSMContext
 
@@ -26,17 +26,10 @@ answer1 = ''
 #     print(message)
 
 
-@dp.message_handler(Text(equals="Получить лучшие условия"))
-async def kb_4(message: types.Message):
-    await message.answer(text='Благодарим за обращение в транспортную компанию <b>«ЭКСПРЕСС»</b>!\n'
-                              'Наш менеджер свяжется с Вами в ближайшее время.\n'
-                              '<b>Хорошего</b> дня!', parse_mode='HTML', reply_markup=kb2)
-
-
 @dp.message_handler(commands=['start'], state='*')
 @dp.message_handler(Text(equals='Главное меню'), state='*')
 async def start_and_kb_5(message: types.Message, state: FSMContext):
-    await message.answer(text="Спасибо за обращение в Транспортную компанию <b>«ЭКСПРЕСС»</b>!\n"
+    await message.answer(text="Спасибо за обращение в Транспортную компанию <b>«*****»</b>!\n"
                               "\nДля расчета стоимости выберите тип контейнера:", parse_mode="HTML", reply_markup=kb)
     await state.finish()
 
@@ -77,8 +70,10 @@ async def number_data(message: types.Message, state: FSMContext):
     data = await state.get_data()
     application = [answer1, data.get("answer1"), data.get("answer2"), data.get("answer3")]
     print(application)
-    await message.answer(text=f"Название вашей организации - {message.text}!"
-                              "\nЗаявка закончена", reply_markup=kb1)
+    await bot.send_message(chat_id=*******, text=' , '.join(application))
+    await message.answer(text='Благодарим за обращение в транспортную компанию <b>«*****»</b>!\n'
+                              'Наш менеджер свяжется с Вами в ближайшее время.\n'
+                              '<b>Хорошего</b> дня!', parse_mode='HTML', reply_markup=kb)
     await state.finish()
 
 if __name__ == '__main__':
